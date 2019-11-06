@@ -1,0 +1,6 @@
+#network
+netctl
+wifi-menu -o
+
+#time
+timedatectl set-ntp true
