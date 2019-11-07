@@ -6,3 +6,7 @@ okular - pdf reader
 
 acpilight - control screen brightness
 
+alsa-utils - sound
+    alsamixer
+    amixer
+
