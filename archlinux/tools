@@ -10,3 +10,6 @@ alsa-utils - sound
     alsamixer
     amixer
 
+    set default sound card:
+        export ALSA_CARD=PCH
+
