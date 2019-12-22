@@ -13,3 +13,13 @@ or
 
     $ cat /etc/centos-release
     CentOS Linux release 8.0.1905 (Core)
+
+## docker
+
+### Start a container with a bind mount
+
+    $ docker run -d \
+      -it \
+      --name devtest \
+      --mount type=bind,source="$(pwd)"/target,target=/app \
+      nginx:latest
