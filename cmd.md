@@ -2,6 +2,19 @@
 
 ## linux
 
+### common
+
+convert timestamps to date
+
+    $ date -d @1577165662
+    Tue Dec 24 13:34:22 CST 2019
+
+    $ date -d @1577165662 '+%Y-%m-%d %H:%M:%S'
+    2019-12-24 13:34:22
+
+    $ date -d '2019-12-24 13:34:22 CST' +%s
+    1577165662
+
 ### centos
 
 check centos veison
@@ -29,3 +42,11 @@ check boost version
       --name devtest \
       --mount type=bind,source="$(pwd)"/target,target=/app \
       nginx:latest
+
+## Elasticsearch
+
+### [Get index API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html)
+
+Returns information about one or more indexes.
+
+    curl -X GET host_name:9200/_all|jq
