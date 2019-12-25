@@ -47,6 +47,14 @@ check boost version
 
 ### [Get index API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-index.html)
 
-Returns information about one or more indexes.
-
     curl -X GET host_name:9200/_all|jq
+
+### [Create index API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-create-index.html)
+
+    curl -X PUT host_name:9200/index_name
+
+### [Put mapping API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-put-mapping.html)
+
+### [Get mapping API](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-get-mapping.html)
+
+### [Request Body Search](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-body.html)
