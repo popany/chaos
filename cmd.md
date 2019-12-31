@@ -27,11 +27,17 @@ or
     $ cat /etc/centos-release
     CentOS Linux release 8.0.1905 (Core)
 
-## ubuntu
+### ubuntu
 
 check boost version
 
     $ dpkg -s libboost-dev | grep 'Version'
+
+## windows
+
+Changes the active console code page
+
+    chcp [<NNN>]
 
 ## docker
 
