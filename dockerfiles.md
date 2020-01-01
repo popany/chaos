@@ -4,7 +4,10 @@
     RUN yum install -y gcc-c++ \
         boost-devel \
         make \
-        cmake
+        cmake \
+        libaio \
+        unixODBC \
+        unixODBC-devel
 
     ADD oracle-instantclient11.2-basic-11.2.0.4.0-1.x86_64.rpm /opt/oracle-instantclient11.2-basic.rpm
     ADD oracle-instantclient11.2-devel-11.2.0.4.0-1.x86_64.rpm /opt/oracle-instantclient11.2-devel.rpm
@@ -13,8 +16,12 @@
     RUN yum install -y /opt/oracle-instantclient11.2-basic.rpm \
         /opt/oracle-instantclient11.2-devel.rpm \
         /opt/oracle-instantclient11.2-odbc.rpm && \
-        echo /usr/lib/oracle/11.2/client64/lib > \
-        /etc/ld.so.conf.d/oracle-instantclient.conf && \
-        ldconfig
+        echo /usr/lib/oracle/11.2/client64/lib > /etc/ld.so.conf.d/oracle-instantclient.conf && \
+        ldconfig && \
+        cd /usr/share/oracle/11.2/client64 && \
+        ./odbc_update_ini.sh
+
+    ENV ORACLE_INCLUDE=/usr/include/oracle/11.2/client64
+    ENV ORACLE_LIB=/usr/lib/oracle/11.2/client64/lib
 
     CMD ["/bin/bash"]
