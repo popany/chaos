@@ -21,6 +21,10 @@ Example 1
             $ENV{FOO_INCLUDE_PATH}
     )
     
+    if(WIN32)
+        set(MSVC_TOOLSET_VERSION 100) # for find correct boost lib match with MSVC_TOOLSET_VERSION
+    endif()
+
     set(Boost_USE_STATIC_LIBS ON)
     find_package(Boost 1.61.0 REQUIRED thread)
     
