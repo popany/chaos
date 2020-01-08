@@ -21,10 +21,12 @@ Example 1
             $ENV{FOO_INCLUDE_PATH}
     )
     
+    set(Boost_USE_STATIC_LIBS ON)
     find_package(Boost 1.61.0 REQUIRED thread)
     
     list(APPEND CMAKE_LIBRARY_PATH $ENV{FOO_LIB_PATH})
     find_library(FOO_LIB foo)
+    find_library(RT_LIB rt) # 'Boost_USE_STATIC_LIBS ON' need this
     
     # debug
     # include(CMakePrintHelpers)
@@ -34,5 +36,6 @@ Example 1
         PRIVATE
             Boost::thread
             ${FOO_LIB}
+            ${RT_LIB}
     )
     
