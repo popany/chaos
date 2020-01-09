@@ -1,4 +1,6 @@
-Example 1
+# Examples
+
+## Example 1
 
     cmake_minimum_required(VERSION 3.5)
     
@@ -20,13 +22,9 @@ Example 1
             ${PROJECT_SOURCE_DIR}/src/include
             $ENV{FOO_INCLUDE_PATH}
     )
-    
-    if(WIN32)
-        set(MSVC_TOOLSET_VERSION 100) # for find correct boost lib match with MSVC_TOOLSET_VERSION
-    endif()
 
     set(Boost_USE_STATIC_LIBS ON)
-    find_package(Boost 1.61.0 REQUIRED thread)
+    find_package(Boost 1.61.0 REQUIRED thread)  # for windows `MSVC_TOOLSET_VERSION' is used to match boost lib's name
     
     list(APPEND CMAKE_LIBRARY_PATH $ENV{FOO_LIB_PATH})
     find_library(FOO_LIB foo)
@@ -42,4 +40,22 @@ Example 1
             ${FOO_LIB}
             ${RT_LIB}
     )
-    
+
+## Example 2
+
+use visual studio 2019 build v100
+
+    {
+        "configurations": [{
+            "buildCommandArgs": "-v:minimal",
+            "buildRoot": "${projectDir}\\build-win32\\${name}",
+            "cmakeCommandArgs": "--debug-trycompile -T v100",
+            "configurationType": "RelWithDebInfo",
+            "ctestCommandArgs": "",
+            "generator": "Visual Studio 16 2019",
+            "inheritEnvironments": ["msvc_x86"],
+            "installRoot": "${projectDir}\\out\\install\\${name}",
+            "name": "x86-Release",
+            "variables": []
+        }]
+    }
