@@ -45,6 +45,8 @@
 
 use visual studio 2019 build v100
 
+`CMakeSettings.json`
+
     {
         "configurations": [{
             "buildCommandArgs": "-v:minimal",
