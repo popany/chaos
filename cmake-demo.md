@@ -61,3 +61,81 @@ use visual studio 2019 build v100
             "variables": []
         }]
     }
+
+## Example 3
+
+`gtest`
+
+    find_package(Threads REQUIRED)
+
+    # Enable ExternalProject CMake module
+    include(ExternalProject)
+
+    # Download and install GoogleTest
+    ExternalProject_Add(
+        gtest
+        URL https://github.com/google/googletest/archive/release-1.8.0.zip
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/gtest
+
+        # cmake arguments
+        CMAKE_ARGS -Dgtest_force_shared_crt=ON
+
+        # Disable install step
+        INSTALL_COMMAND ""
+    )
+
+    # Get GTest source and binary directories from CMake project
+    ExternalProject_Get_Property(gtest source_dir binary_dir)
+
+
+    if(UNIX)
+        # Create a libgtest target to be used as a dependency by test programs
+        add_library(libgtest IMPORTED STATIC GLOBAL)
+        add_dependencies(libgtest gtest)
+
+        # Set libgtest properties
+        set_target_properties(libgtest PROPERTIES
+            "IMPORTED_LOCATION" "${binary_dir}/googlemock/gtest/libgtest.a"
+            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+        )
+
+        # Create a libgmock target to be used as a dependency by test programs
+        add_library(libgmock IMPORTED STATIC GLOBAL)
+        add_dependencies(libgmock gtest)
+
+        # Set libgmock properties
+        set_target_properties(libgmock PROPERTIES
+            "IMPORTED_LOCATION" "${binary_dir}/googlemock/libgmock.a"
+            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+        )
+    endif()
+
+
+    if(WIN32)
+        # Create a libgtest target to be used as a dependency by test programs
+        add_library(libgtest IMPORTED STATIC GLOBAL)
+        add_dependencies(libgtest gtest)
+
+        # Set libgtest properties
+        set_target_properties(libgtest PROPERTIES
+            "IMPORTED_LOCATION" "${binary_dir}/googlemock/gtest/${CMAKE_CONFIGURATION_TYPES}/gtest.lib"
+            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+        )
+
+        # Create a libgmock target to be used as a dependency by test programs
+        add_library(libgmock IMPORTED STATIC GLOBAL)
+        add_dependencies(libgmock gtest)
+
+        # Set libgmock properties
+        set_target_properties(libgmock PROPERTIES
+            "IMPORTED_LOCATION" "${binary_dir}/googlemock/${CMAKE_CONFIGURATION_TYPES}/gmock.lib"
+            "IMPORTED_LINK_INTERFACE_LIBRARIES" "${CMAKE_THREAD_LIBS_INIT}"
+        )
+    endif()
+
+
+    # I couldn't make it work with INTERFACE_INCLUDE_DIRECTORIES
+    include_directories("${source_dir}/googletest/include"
+                        "${source_dir}/googlemock/include")
+
+    add_subdirectory(testdf)
