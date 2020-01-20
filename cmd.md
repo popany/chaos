@@ -35,9 +35,17 @@ check boost version
 
 ## windows
 
+### cmd
+
 Changes the active console code page
 
     chcp [<NNN>]
+
+### PowerShell
+
+Gets ODBC DSNs
+
+    Get-OdbcDsn
 
 ## docker
 
